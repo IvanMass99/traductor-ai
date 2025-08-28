@@ -1,34 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
   <head>
-    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>🎧 Live Lyrics</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
   </head>
   <body>
-    <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Traductor en Tiempo Real</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <h1>🎙️ Traductor en Tiempo Real</h1>
+    <!-- Capas de fondo para crossfade (no tocar) -->
+    <div id="bg" aria-hidden="true">
+      <div class="bg-layer" id="bgA"></div>
+      <div class="bg-layer" id="bgB"></div>
+    </div>
 
-  <div class="controls">
-    <button id="toggleMic">🎙️ Iniciar Micrófono</button>
-    <button id="clearText">🗑️ Limpiar</button>
-  </div>
+    <header class="topbar">
+      <div class="brand">
+        <h1>Live Lyrics</h1>
+        <p class="hint">Estas letras no están sincronizadas aún.</p>
+      </div>
 
-  <div id="output">
-    <p><b>Texto original (ES):</b><br></p>
-    <p><b>Traducción (EN):</b><br></p>
-  </div>
+      <div class="controls">
+        <div class="selects">
+          <label>
+            Origen
+            <select id="sourceLang">
+              <option value="es" selected>Español (ES)</option>
+              <option value="en">Inglés (EN)</option>
+              <option value="de">Alemán (DE)</option>
+              <option value="pt">Portugués (PT/BR)</option>
+            </select>
+          </label>
+          <label>
+            Destino
+            <select id="targetLang">
+              <option value="en" selected>Inglés (EN)</option>
+              <option value="es">Español (ES)</option>
+              <option value="de">Alemán (DE)</option>
+              <option value="pt">Portugués (PT/BR)</option>
+            </select>
+          </label>
+        </div>
 
-  <script src="script.js"></script>
-</body>
-</html>
+        <div class="buttons">
+          <button id="toggleMic">▶️ Iniciar</button>
+          <button id="clearText">🗑️ Limpiar</button>
+        </div>
+      </div>
+    </header>
 
-    <script type="module" src="script.js"></script>
+    <main class="lyrics-wrap">
+      <section class="lyrics-card">
+        <div id="lyrics" class="lyrics-scroll"></div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <span id="statusBadge" class="badge">Listo</span>
+    </footer>
   </body>
 </html>

@@ -1,56 +1,89 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f9fafb;
-  color: #333;
-  margin: 0;
-  padding: 20px;
-  text-align: center;
-}
-
-h1 {
-  margin-bottom: 20px;
-}
-
-.controls {
-  margin-bottom: 20px;
-}
-
-button {
-  font-size: 16px;
-  padding: 10px 20px;
-  margin: 5px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-#toggleMic {
-  background: #4caf50;
-  color: white;
-}
-
-#toggleMic:hover {
-  background: #45a049;
-}
-
-#clearText {
-  background: #f44336;
-  color: white;
-}
-
-#clearText:hover {
-  background: #d32f2f;
-}
-
-#output {
-  margin-top: 20px;
-  padding: 15px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  text-align: left;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
+/* ---------- Tema base: negro al inicio ---------- */
+:root{
+    --bg1:#000000;
+    --bg2:#000000;
+    --ink:#ffffff;
+    --ink-dim:#f3f5f8cc;
+    --accent:#ffffff;
+    --card:#0000001a;
+    --stroke:#ffffff33;
+  }
+  
+  *{ box-sizing:border-box; }
+  html,body{ height:100%; }
+  body{
+    margin:0;
+    color:var(--ink);
+    font:16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg, var(--bg1), var(--bg2)); /* fallback negro */
+  }
+  
+  /* ---------- Fondo con crossfade ---------- */
+  #bg{ position:fixed; inset:0; z-index:-1; }
+  .bg-layer{
+    position:absolute; inset:0;
+    opacity:0;                 /* solo una capa visible a la vez */
+    transition: opacity 900ms ease;  /* transicion suave */
+    background: radial-gradient(1200px 600px at 10% -10%, rgba(255,255,255,0.06), transparent 60%),
+                radial-gradient(900px 700px at 90% 110%, rgba(255,255,255,0.08), transparent 60%),
+                linear-gradient(180deg, var(--bg1), var(--bg2));
+  }
+  
+  /* ---------- Top bar ---------- */
+  .topbar{
+    padding:18px clamp(16px,4vw,32px);
+    display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:12px;
+  }
+  .brand h1{ margin:0; font-size:clamp(18px,2.8vw,24px); letter-spacing:.3px; }
+  .hint{ margin:.25rem 0 0 0; font-size:12px; opacity:.8; }
+  
+  .controls{ display:flex; gap:16px; align-items:end; flex-wrap:wrap; }
+  .selects{ display:flex; gap:12px; flex-wrap:wrap; }
+  label{ display:flex; flex-direction:column; gap:6px; font-size:12px; opacity:.9; }
+  select{
+    background:#0000002b; color:var(--ink); border:1px solid var(--stroke);
+    border-radius:12px; padding:10px 12px; outline:none; backdrop-filter:blur(6px);
+  }
+  select:focus{ border-color:#fff; }
+  .buttons{ display:flex; gap:10px; }
+  button{
+    cursor:pointer; background:#0000002b; color:var(--ink); border:1px solid var(--stroke);
+    border-radius:999px; padding:10px 16px; backdrop-filter:blur(6px);
+    transition:transform .06s ease, border-color .2s, background .2s;
+  }
+  button:hover{ border-color:#ffffff66; transform:translateY(-1px); }
+  button:active{ transform:translateY(0); }
+  #toggleMic.is-on{ background:#ffffff; color:#111; border-color:transparent; font-weight:700; }
+  
+  /* ---------- Lyrics ---------- */
+  .lyrics-wrap{ display:grid; grid-template-columns:1fr; padding:clamp(8px,2vw,24px); }
+  .lyrics-card{
+    min-height:calc(100vh - 160px); border-radius:18px; border:1px solid var(--stroke);
+    background:linear-gradient(180deg, var(--card), transparent 70%); overflow:hidden;
+  }
+  .lyrics-scroll{
+    height:100%; padding:clamp(20px,5vw,40px); overflow:auto; scrollbar-width:thin;
+  }
+  .lyrics-scroll::-webkit-scrollbar{ width:8px; }
+  .lyrics-scroll::-webkit-scrollbar-thumb{ background:#ffffff33; border-radius:8px; }
+  
+  .line{ margin:0 0 18px 0; }
+  .line .orig{
+    font-weight:800; font-size:clamp(24px,5.4vw,44px); line-height:1.18;
+    letter-spacing:.2px; text-shadow:0 1px 0 rgba(0,0,0,.3);
+  }
+  .line .tran{ margin-top:6px; font-size:clamp(16px,2.6vw,20px); color:var(--ink-dim); opacity:.9; }
+  
+  /* ---------- Footer ---------- */
+  .foot{ display:flex; justify-content:center; padding:8px 12px 18px; }
+  .badge{
+    font-size:12px; padding:6px 10px; border-radius:999px;
+    background:#0000002b; color:#fff; border:1px solid var(--stroke); backdrop-filter:blur(6px);
+  }
+  .badge.ok{ color:#eafff4; border-color:#2b4440; background:#0f211a88; }
+  .badge.warn{ color:#fff3bf; border-color:#4a3e16; background:#211b0c88; }
+  .badge.err{ color:#ffd1d1; border-color:#4b1a1a; background:#24101088; }
+  
+  .fade-in{ animation:fade .18s ease both; }
+  @keyframes fade{ from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none} }
+  
